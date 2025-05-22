@@ -22,4 +22,5 @@ public interface ClienteAPI {
 	@GetMapping
 	@ResponseStatus (code = HttpStatus.OK)
 	List<ClienteListResponse> getTodosClientes();
+	
 }
