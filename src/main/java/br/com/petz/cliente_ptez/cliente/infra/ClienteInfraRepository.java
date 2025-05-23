@@ -1,6 +1,7 @@
 package br.com.petz.cliente_ptez.cliente.infra;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
 
@@ -13,20 +14,29 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @RequiredArgsConstructor
 public class ClienteInfraRepository implements ClienteRepository {
-    private final ClienteSpringDataJPARepository clienteSprintDataJPARepository;
-	    @Override
+    private final ClienteSpringDataJPARepository ClienteSpringDataJPARepository;
+	   
+    @Override
 	public Cliente salva(Cliente cliente) {
-		log.info("[inicia] ClienteRepository - salva");
-		clienteSprintDataJPARepository.save(cliente);
-		log.info("[finaliza] ClienteRepository - salva");
+		log.info("[inicia] ClienteInfraRepository - salva");
+		ClienteSpringDataJPARepository.save(cliente);
+		log.info("[finaliza] ClienteInfraRepository - salva");
 		return cliente;
 	}
 		@Override
 		public List<Cliente> buscaTodosClientes() {
-			log.info("[inicia] ClienteRepository - buscaTodosClientes");
-			List<Cliente> todosClientes = clienteSprintDataJPARepository.findAll();
-			log.info("[finaliza] ClienteRepository - buscaTodosClientes");
+			log.info("[inicia] ClienteInfraRepository - buscaTodosClientes");
+			List<Cliente> todosClientes = ClienteSpringDataJPARepository.findAll();
+			log.info("[finaliza] ClienteInfraRepository - buscaTodosClientes");
 			return todosClientes;
+		}
+		@Override
+		public Cliente buscaClienteAtravesId(UUID idCliente) {
+			log.info("[inicia] ClienteInfraRepository - buscaClienteAtravesId");
+			Cliente cliente = ClienteSpringDataJPARepository.findById(idCliente)
+					.orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
+			log.info("[finaliza] ClienteInfraRepository - buscaClienteAtravesId");
+			return cliente;
 		}
 
 }
