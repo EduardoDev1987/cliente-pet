@@ -47,7 +47,7 @@ public class PetController implements PetAPI{
 	public void deletePetDoClienteComId(UUID idCliente, UUID idPet) {
 		log.info("[inicia] PetController - deletePetDoClienteComId");
 		log.info("[idCliente] {} - [idPet] {}", idCliente, idPet);
-		//PetClienteDeleteResponse pet = petService.deletePetDoClienteComId(idCliente, idPet);
+		petService.deletaPetDoClienteComId(idCliente, idPet);
 		log.info("[finaliza] PetController - deletePetDoClienteComId");		
 	}
 	
