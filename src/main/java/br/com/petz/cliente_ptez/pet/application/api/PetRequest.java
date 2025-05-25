@@ -26,6 +26,9 @@ public class PetRequest {
 	private LocalDate dataNascimento;
 	private String rga;
 	private Integer peso;
+
+		
+	}
 	
     
-}
+
