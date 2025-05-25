@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import br.com.petz.cliente_ptez.cliente.application.service.ClienteService;
+import br.com.petz.cliente_ptez.pet.application.api.PetClienteDetalheResponse;
 import br.com.petz.cliente_ptez.pet.application.api.PetClienteListResponse;
 import br.com.petz.cliente_ptez.pet.application.api.PetRequest;
 import br.com.petz.cliente_ptez.pet.application.api.PetResponse;
@@ -20,6 +21,7 @@ import lombok.extern.log4j.Log4j2;
 public class PetApplicationService implements PetService {
     private final ClienteService clienteService;
     private final PetRepository petRepository;
+    
 	@Override
 	public PetResponse criaPet(UUID idCliente, @Valid PetRequest petRequest) {
         log.info("[inicia] PetApplicationService - criaPet");
@@ -37,12 +39,12 @@ public class PetApplicationService implements PetService {
 		return PetClienteListResponse.converte(petDosCliente);
 	}
 	@Override
-	public PetClienteListResponse buscaPetDoClienteComId(UUID idCliente, UUID idPet) {
+	public PetClienteDetalheResponse buscaPetDoClienteComId(UUID idCliente, UUID idPet) {
 		log.info("[inicia] PetApplicationService - buscaPetDoClienteComId");
-        //clienteService.buscaClienteAtravesId(idCliente);
-        //PetDoCliente petDoCliente = petRepository.buscaPetsDoClienteComId(idCliente);
+		clienteService.buscaClienteAtravesId(idCliente);
+        Pet pet = petRepository.buscaPetPeloId(idPet);
 		log.info("[finaliza] PetApplicationService - buscaPetDoClienteComId");
-		return null;
+		return new PetClienteDetalheResponse(pet);
 	}
 
 }
